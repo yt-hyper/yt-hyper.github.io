@@ -1,95 +1,47 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-  <meta charset="utf-8">
-  
-  <title>Archives: 2019/3 | Hexo</title>
+extends includes/base
 
-  
-  <meta name="author" content="John Doe">
-  
+block content
+    div.al_index_background.dis_flex_center.al_full_cover
+        - var bio = config.bio || 'A Beautiful Text Site.'
+        - var firstBioChar = bio.substr(0, 1)
+        div.al_pos_ab.al_letter.al_index_background_letter= firstBioChar
+        h2.al_index_background_bio= bio
+    div.al_index_container
+        div.al_pos_ab.al_fake_background
+        div.al_main_container
+            div.al_section_container.dis_flex_jcenter
+                div.section_header= 'LATEST PAGES'
+            ur.al_post_list
+                each item in site.posts.sort('date', -1).toArray()
+                    - var postTitle = item.title || 'No Title'
+                    - var createDate = date(item.date, 'MMM DD')
+                    - var firstChar = postTitle.substr(0, 1)
+                    - var postURL = item.link || item.path
+                    - var excerpt = item.excerpt + '...' || 'No Excerpt'
+                    - var readLaterURL = 'https://getpocket.com/edit?url=' + encodeURIComponent(config.url + '/' + url_for(postURL))
+                    li.al_index_pageList_item.al_index_page_seperator
+                        div.al_index_post_title_cnt.dis_flex
+                            div.al_pos_ab.al_letter.al_index_post_title_letter= firstChar
+                            h2.al_index_post_title
+                                a(href=url_for(postURL))= postTitle
+                            div.al_index_post_extra.dis_flex
+                                div.al_index_post_date.al_index_post_extra_item= createDate
+                                div.al_index_post_read_time
+                                    |#{min2read(item.content)} Min Read
+                        div.al_index_post_excerpt_cnt
+                            p.al_index_post_excerpt= excerpt
+                        div.al_index_post_button_cnt.dis_flex
+                            a.al_button.al_button_red.al_index_post_button(href=url_for(postURL))= 'READ ON'
+                            a.al_button.al_button_white.al_index_post_button(href=readLaterURL)= 'READ LATER'
 
-  
-
-  
-
-  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-
-  
-
-  <meta property="og:site_name" content="Hexo"/>
-
-  
-  <meta property="og:image" content="/favicon.ico"/>
-  
-
-  <link href="/favicon.ico" rel="icon">
-  <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
-<meta name="generator" content="Hexo 4.2.0"></head>
-
-
-<body>
-<div class="blog">
-  <div class="content">
-
-    <header>
-  <div class="site-branding">
-    <h1 class="site-title">
-      <a href="/">Hexo</a>
-    </h1>
-    <p class="site-description"></p>
-  </div>
-  <nav class="site-navigation">
-    <ul>
-      
-    </ul>
-  </nav>
-</header>
-
-    <main class="site-main posts-loop">
-    
-
-<article>
-
-  <h2 class="article-title ">2019/3</h2>
-
-  <div class="archive">
-    
-      <div class="post archive">
-        <div class="archive-post">
-          <time datetime="2019-03-09T06:04:16.000Z">
-            <a href="/2019/03/09/手势/">2019-03-09</a>
-          </time>
-          
-            <h3 class="archive-title"><a href="/2019/03/09/手势/"><span>手势</span></a></h3>
-          
-        </div>
-      </div>
-    
-    <nav class="pagination">
-  
-  
-</nav>
-  </div>
-
-</article>
-    </main>
-
-    <footer class="site-footer">
-  <p class="site-info">
-    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
-    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
-    </br>
-    
-    &copy; 2020 John Doe
-    
-  </p>
-</footer>
-    
-  </div>
-</div>
-</body>
-</html>
+            nav.dis_flex.post-nav
+                span.prev
+                    if page.prev
+                        a(href=url_for(page.prev_link))
+                            span.arrow ←
+                            | Newer Posts
+                span.next
+                    if page.next
+                        a(href=url_for(page.next_link))
+                            | Older Posts
+                            span.arrow →

@@ -1,211 +1,47 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-  <meta charset="utf-8">
-  
-  <title>Hexo</title>
+extends includes/base
 
-  
-  <meta name="author" content="John Doe">
-  
+block content
+    div.al_index_background.dis_flex_center.al_full_cover
+        - var bio = config.bio || 'A Beautiful Text Site.'
+        - var firstBioChar = bio.substr(0, 1)
+        div.al_pos_ab.al_letter.al_index_background_letter= firstBioChar
+        h2.al_index_background_bio= bio
+    div.al_index_container
+        div.al_pos_ab.al_fake_background
+        div.al_main_container
+            div.al_section_container.dis_flex_jcenter
+                div.section_header= 'LATEST PAGES'
+            ur.al_post_list
+                each item in site.posts.sort('date', -1).toArray()
+                    - var postTitle = item.title || 'No Title'
+                    - var createDate = date(item.date, 'MMM DD')
+                    - var firstChar = postTitle.substr(0, 1)
+                    - var postURL = item.link || item.path
+                    - var excerpt = item.excerpt + '...' || 'No Excerpt'
+                    - var readLaterURL = 'https://getpocket.com/edit?url=' + encodeURIComponent(config.url + '/' + url_for(postURL))
+                    li.al_index_pageList_item.al_index_page_seperator
+                        div.al_index_post_title_cnt.dis_flex
+                            div.al_pos_ab.al_letter.al_index_post_title_letter= firstChar
+                            h2.al_index_post_title
+                                a(href=url_for(postURL))= postTitle
+                            div.al_index_post_extra.dis_flex
+                                div.al_index_post_date.al_index_post_extra_item= createDate
+                                div.al_index_post_read_time
+                                    |#{min2read(item.content)} Min Read
+                        div.al_index_post_excerpt_cnt
+                            p.al_index_post_excerpt= excerpt
+                        div.al_index_post_button_cnt.dis_flex
+                            a.al_button.al_button_red.al_index_post_button(href=url_for(postURL))= 'READ ON'
+                            a.al_button.al_button_white.al_index_post_button(href=readLaterURL)= 'READ LATER'
 
-  
-
-  
-
-  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-
-  
-
-  <meta property="og:site_name" content="Hexo"/>
-
-  
-  <meta property="og:image" content="/favicon.ico"/>
-  
-
-  <link href="/favicon.ico" rel="icon">
-  <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
-<meta name="generator" content="Hexo 4.2.0"></head>
-
-
-<body>
-<div class="blog">
-  <div class="content">
-
-    <header>
-  <div class="site-branding">
-    <h1 class="site-title">
-      <a href="/">Hexo</a>
-    </h1>
-    <p class="site-description"></p>
-  </div>
-  <nav class="site-navigation">
-    <ul>
-      
-    </ul>
-  </nav>
-</header>
-
-    <main class="site-main posts-loop">
-    
-  <article>
-
-  
-    
-    <h3 class="article-title"><a href="/2020/02/04/hello-world/"><span>Hello World</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2020/02/04/hello-world/" rel="bookmark">
-        <time class="entry-date published" datetime="2020-02-04T08:00:13.615Z">
-          2020-02-04
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-
-    
-
-    </div>
-
-    
-  </div>
-</article>
-
-
-
-  <article>
-
-  
-    
-    <h3 class="article-title"><a href="/2019/03/09/手势/"><span>手势</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2019/03/09/手势/" rel="bookmark">
-        <time class="entry-date published" datetime="2019-03-09T06:04:16.000Z">
-          2019-03-09
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <h2 id="UIGestureRecognizer"><a href="#UIGestureRecognizer" class="headerlink" title="UIGestureRecognizer"></a>UIGestureRecognizer</h2><p>利用UIGestureRecognizer,可以识别用户在某个view上做的一些常见手势</p>
-<ul>
-<li>UITapGestureRecognizer – 点按</li>
-<li>UIPinchGestureRecognizer – 捏合，用于缩放</li>
-<li>UIPanGestureRecognizer – 拖拽</li>
-<li>UISwipeGestureRecognizer – 轻扫 (一个轻扫手势只能对应一个方向)</li>
-<li>UIRotationGestureRecognizer – 旋转</li>
-<li>UILongPressGestureRecognizer – 长按 (当长按移动时，该方法会持续调用)<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">    <span class="comment">//创建手势</span></span><br><span class="line">    <span class="built_in">UITapGestureRecognizer</span> *tap = [[<span class="built_in">UITapGestureRecognizer</span> alloc]initWithTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(tap)];</span><br><span class="line">    <span class="comment">//添加手势</span></span><br><span class="line">    [<span class="keyword">self</span>.imageView addGestureRecognizer:tap];</span><br><span class="line"><span class="comment">//实现手势方法</span></span><br><span class="line">- (<span class="keyword">void</span>)tap&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h2 id="UIGestureRecognizer代理"><a href="#UIGestureRecognizer代理" class="headerlink" title="UIGestureRecognizer代理"></a>UIGestureRecognizer代理</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">    <span class="comment">//设置代理</span></span><br><span class="line">    tap.delegate = <span class="keyword">self</span>;</span><br><span class="line">    </span><br><span class="line"><span class="comment">//是否允许接收手势</span></span><br><span class="line">- (<span class="built_in">BOOL</span>)gestureRecognizer:(<span class="built_in">UIGestureRecognizer</span> *)gestureRecognizer shouldReceiveTouch:(<span class="built_in">UITouch</span> *)touch&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="长按手势"><a href="#长按手势" class="headerlink" title="长按手势"></a>长按手势</h2><ul>
-<li>用长按手势的state可以判断长按手势的状态<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//长按时调用</span></span><br><span class="line">- (<span class="keyword">void</span>)<span class="keyword">long</span>:(<span class="built_in">UILongPressGestureRecognizer</span> *)<span class="keyword">long</span>&#123;</span><br><span class="line">    <span class="comment">//判断手势的状态</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">long</span>.state == <span class="built_in">UIGestureRecognizerStateBegan</span>)&#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"开始长按"</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="keyword">long</span>.state == <span class="built_in">UIGestureRecognizerStateChange</span>)&#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"长按时移动"</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="keyword">long</span>.state == <span class="built_in">UIGestureRecognizerStateEnded</span>)&#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"手指离开屏幕"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h2 id="拖动手势"><a href="#拖动手势" class="headerlink" title="拖动手势"></a>拖动手势</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//当拖动View时调用</span></span><br><span class="line">- (<span class="keyword">void</span>)pan:(<span class="built_in">UIPanGestureRecognizer</span> *)pan&#123;</span><br><span class="line">    <span class="comment">//获取偏移量</span></span><br><span class="line">    <span class="built_in">CGPoint</span> transPoint = [pan translationInView:<span class="keyword">self</span>.imageView];</span><br><span class="line">    <span class="comment">//让imageView的偏移量等于手指的偏移量</span></span><br><span class="line">    <span class="keyword">self</span>.imageView.transform = <span class="built_in">CGAffineTransformTranslate</span>(<span class="keyword">self</span>.imageView.transform,transPoint.x,transPoint.y);</span><br><span class="line">    <span class="comment">//注意 每次都要将偏移量清零</span></span><br><span class="line">    [pan setTranslation:<span class="built_in">CGPintZero</span> inView:<span class="keyword">self</span>.imageView];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="缩放手势"><a href="#缩放手势" class="headerlink" title="缩放手势"></a>缩放手势</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)pinch:(<span class="built_in">UIPinchGestureRecognizer</span> *)pinch&#123;</span><br><span class="line">    <span class="comment">//让手势的放大倍数等于图片的放大倍数</span></span><br><span class="line">    <span class="keyword">self</span>.imageView.transform = <span class="built_in">CGAffineTransformScale</span>(<span class="keyword">self</span>.imageView.transform,pinch.scale,pinch.scale);</span><br><span class="line">    <span class="comment">//清零</span></span><br><span class="line">    [pinch setScale : <span class="number">1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="旋转手势"><a href="#旋转手势" class="headerlink" title="旋转手势"></a>旋转手势</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)ratationGes:(<span class="built_in">UIRatationGestureRecognizer</span> *)rotationGes&#123;</span><br><span class="line">    <span class="keyword">self</span>.imageView.transform = <span class="built_in">CGAffineTransformRotate</span>(<span class="keyword">self</span>.imageView.transform,ratationGes.rotation);</span><br><span class="line">    <span class="comment">//清零</span></span><br><span class="line">    [rotationGes setRotation:<span class="number">0</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="同时支持多个手势"><a href="#同时支持多个手势" class="headerlink" title="同时支持多个手势"></a>同时支持多个手势</h2><ul>
-<li>使用代理<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//是否支持多个手势同时使用</span></span><br><span class="line">- (<span class="built_in">BOOL</span>)gestureRecognizer:(<span class="built_in">UIGestureRecognizer</span> *)gestureRecognizer </span><br><span class="line">shouldRecognizeSimultaneouslyWithGestureRecognizer:</span><br><span class="line">(<span class="built_in">UIGestureRecognizer</span> *)otherGestureRecognizer&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-
-      
-    </div>
-
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/ios/">ios</a><a href="/tags/ui/">ui</a>
-    </span>
-    
-
-    </div>
-
-    
-  </div>
-</article>
-
-
-
-
-<nav class="pagination">
-  
-  
-</nav>
-    </main>
-
-    <footer class="site-footer">
-  <p class="site-info">
-    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
-    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
-    </br>
-    
-    &copy; 2020 John Doe
-    
-  </p>
-</footer>
-    
-  </div>
-</div>
-</body>
-</html>
+            nav.dis_flex.post-nav
+                span.prev
+                    if page.prev
+                        a(href=url_for(page.prev_link))
+                            span.arrow ←
+                            | Newer Posts
+                span.next
+                    if page.next
+                        a(href=url_for(page.next_link))
+                            | Older Posts
+                            span.arrow →
