@@ -1,45 +1,430 @@
-extends includes/base
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
 
-block content
-    div.al_page_background.dis_flex_center.al_full_cover
-    div.al_page_container
-        div.al_pos_ab.al_fake_background
-        div.al_main_container.al_main_page_container
-            article.al_article
-                header
-                    h1.al_page_title= page.title
-                    div.al_page_info.dis_flex
-                        div.al_page_content_info
-                            |#{date(page.date, 'MMM DD, YYYY h:mm')}
-                        div.al_page_content_info
-                            |#{wordcount(page.content)} words
-                        div.al_page_content_info
-                            |#{min2read(page.content)} minutes read
-                        span.tags
+  <!-- PACE Progress Bar START -->
+  
+    
+<script src="https://raw.githubusercontent.com/HubSpot/pace/v1.0.2/pace.min.js"></script>
 
-                if toc(page.content)
-                    div.al_page_content_outline!= toc(page.content,{list_number:false})
+    
+<link rel="stylesheet" href="https://github.com/HubSpot/pace/raw/master/themes/orange/pace-theme-flash.css">
 
-                section#post-body!=page.content
+  
+  
 
-                include ./includes/disqus.pug
+  <!-- PACE Progress Bar START -->
 
-            - var prev = page.prev ? page.prev.path : false;
-            - var next = page.next ? page.next.path : false;
-            nav.dis_flex.post-nav
-                span.prev
-                    if page.prev
-                        a(href=url_for(prev))
-                            span.arrow ←
-                            | Newer Posts
-                span.next
-                    if page.next
-                        a(href=url_for(next))
-                            | Older Posts
-                            span.arrow →
+  
+  <title>手势 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="iosui" />
+  
+  
+  
+  
+  <meta name="description" content="UIGestureRecognizer利用UIGestureRecognizer,可以识别用户在某个view上做的一些常见手势  UITapGestureRecognizer – 点按 UIPinchGestureRecognizer – 捏合，用于缩放 UIPanGestureRecognizer – 拖拽 UISwipeGestureRecognizer – 轻扫 (一个轻扫手势只能对应一个方">
+<meta property="og:type" content="article">
+<meta property="og:title" content="手势">
+<meta property="og:url" content="http://yoursite.com/2019/03/09/%E6%89%8B%E5%8A%BF/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="UIGestureRecognizer利用UIGestureRecognizer,可以识别用户在某个view上做的一些常见手势  UITapGestureRecognizer – 点按 UIPinchGestureRecognizer – 捏合，用于缩放 UIPanGestureRecognizer – 拖拽 UISwipeGestureRecognizer – 轻扫 (一个轻扫手势只能对应一个方">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-03-09T06:04:16.000Z">
+<meta property="article:modified_time" content="2020-02-04T14:41:16.468Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="ios">
+<meta property="article:tag" content="ui">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/favicon.ico">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="https://cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+    
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+  
+<link rel="stylesheet" href="/css/style.css">
 
-    if config.highlight.enable
-        script(type='text/javascript', src=url_for('./javascripts/highlight.pack.js'))
-        script!= "document.querySelectorAll('figure.highlight').forEach(function(b){hljs.highlightBlock(b);});"
 
-            //- include includes/comment.pug
+  
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" >
+  <link rel="stylesheet" href="/css/hiero.css" >
+  <link rel="stylesheet" href="/css/glyphs.css" >
+  
+
+  <!-- Custom CSS -->
+  
+<link rel="stylesheet" href="/css/my.css">
+
+  <!-- Google Adsense -->
+  
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-0123456789ABCDEF",
+          enable_page_level_ads: true
+      });
+  </script>
+  
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<script>
+var themeMenus = {};
+
+  themeMenus["/"] = "Home"; 
+
+  themeMenus["/archives"] = "Archives"; 
+
+  themeMenus["/categories"] = "Categories"; 
+
+  themeMenus["/tags"] = "Tags"; 
+
+  themeMenus["/about"] = "About"; 
+
+</script>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  <header id="allheader" class="site-header" role="banner">
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" rel="home" >
+                <img style="margin-bottom: 10px;"  width="124px" height="124px" alt="Hike News" src="https://hexo.io/logo.svg">
+              </a>
+            
+          </h1>
+
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+            <div class="clearfix sf-menu">
+
+              <ul id="main-nav" class="nmenu sf-js-enabled">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/">Home</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/archives">Archives</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/categories">Categories</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/tags">Tags</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/about">About</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="originBgDiv" style="background: #fff; width: 100%;">
+
+      <div style="max-height:600px; overflow: hidden;  display: flex; display: -webkit-flex; align-items: center;">
+        <img id="originBg" width="100%" alt="" src="">
+      </div>
+
+  </div>
+
+  <script>
+  function setAboutIMG(){
+      var imgUrls = "css/images/pose.jpg,https://source.unsplash.com/collection/954550/1920x1080".split(",");
+      var random = Math.floor((Math.random() * imgUrls.length ));
+      if (imgUrls[random].startsWith('http') || imgUrls[random].indexOf('://') >= 0) {
+        document.getElementById("originBg").src=imgUrls[random];
+      } else {
+        document.getElementById("originBg").src='/' + imgUrls[random];
+      }
+  }
+  bgDiv=document.getElementById("originBgDiv");
+  if(location.pathname.match('about')){
+    setAboutIMG();
+    bgDiv.style.display='block';
+  }else{
+    bgDiv.style.display='none';
+  }
+  </script>
+
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-手势" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      手势
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	Posted on <a href="/2019/03/09/%E6%89%8B%E5%8A%BF/" class="article-date">
+	  <time datetime="2019-03-09T06:04:16.000Z" itemprop="datePublished">March 9, 2019</time>
+	</a>
+
+      
+	<span id="busuanzi_container_page_pv">
+	  本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+	</span>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="UIGestureRecognizer"><a href="#UIGestureRecognizer" class="headerlink" title="UIGestureRecognizer"></a>UIGestureRecognizer</h2><p>利用UIGestureRecognizer,可以识别用户在某个view上做的一些常见手势</p>
+<ul>
+<li>UITapGestureRecognizer – 点按</li>
+<li>UIPinchGestureRecognizer – 捏合，用于缩放</li>
+<li>UIPanGestureRecognizer – 拖拽</li>
+<li>UISwipeGestureRecognizer – 轻扫 (一个轻扫手势只能对应一个方向)</li>
+<li>UIRotationGestureRecognizer – 旋转</li>
+<li>UILongPressGestureRecognizer – 长按 (当长按移动时，该方法会持续调用)<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">    <span class="comment">//创建手势</span></span><br><span class="line">    <span class="built_in">UITapGestureRecognizer</span> *tap = [[<span class="built_in">UITapGestureRecognizer</span> alloc]initWithTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(tap)];</span><br><span class="line">    <span class="comment">//添加手势</span></span><br><span class="line">    [<span class="keyword">self</span>.imageView addGestureRecognizer:tap];</span><br><span class="line"><span class="comment">//实现手势方法</span></span><br><span class="line">- (<span class="keyword">void</span>)tap&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="UIGestureRecognizer代理"><a href="#UIGestureRecognizer代理" class="headerlink" title="UIGestureRecognizer代理"></a>UIGestureRecognizer代理</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">    <span class="comment">//设置代理</span></span><br><span class="line">    tap.delegate = <span class="keyword">self</span>;</span><br><span class="line">    </span><br><span class="line"><span class="comment">//是否允许接收手势</span></span><br><span class="line">- (<span class="built_in">BOOL</span>)gestureRecognizer:(<span class="built_in">UIGestureRecognizer</span> *)gestureRecognizer shouldReceiveTouch:(<span class="built_in">UITouch</span> *)touch&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="长按手势"><a href="#长按手势" class="headerlink" title="长按手势"></a>长按手势</h2><ul>
+<li>用长按手势的state可以判断长按手势的状态<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//长按时调用</span></span><br><span class="line">- (<span class="keyword">void</span>)<span class="keyword">long</span>:(<span class="built_in">UILongPressGestureRecognizer</span> *)<span class="keyword">long</span>&#123;</span><br><span class="line">    <span class="comment">//判断手势的状态</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">long</span>.state == <span class="built_in">UIGestureRecognizerStateBegan</span>)&#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"开始长按"</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="keyword">long</span>.state == <span class="built_in">UIGestureRecognizerStateChange</span>)&#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"长按时移动"</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="keyword">long</span>.state == <span class="built_in">UIGestureRecognizerStateEnded</span>)&#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"手指离开屏幕"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="拖动手势"><a href="#拖动手势" class="headerlink" title="拖动手势"></a>拖动手势</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//当拖动View时调用</span></span><br><span class="line">- (<span class="keyword">void</span>)pan:(<span class="built_in">UIPanGestureRecognizer</span> *)pan&#123;</span><br><span class="line">    <span class="comment">//获取偏移量</span></span><br><span class="line">    <span class="built_in">CGPoint</span> transPoint = [pan translationInView:<span class="keyword">self</span>.imageView];</span><br><span class="line">    <span class="comment">//让imageView的偏移量等于手指的偏移量</span></span><br><span class="line">    <span class="keyword">self</span>.imageView.transform = <span class="built_in">CGAffineTransformTranslate</span>(<span class="keyword">self</span>.imageView.transform,transPoint.x,transPoint.y);</span><br><span class="line">    <span class="comment">//注意 每次都要将偏移量清零</span></span><br><span class="line">    [pan setTranslation:<span class="built_in">CGPintZero</span> inView:<span class="keyword">self</span>.imageView];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="缩放手势"><a href="#缩放手势" class="headerlink" title="缩放手势"></a>缩放手势</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)pinch:(<span class="built_in">UIPinchGestureRecognizer</span> *)pinch&#123;</span><br><span class="line">    <span class="comment">//让手势的放大倍数等于图片的放大倍数</span></span><br><span class="line">    <span class="keyword">self</span>.imageView.transform = <span class="built_in">CGAffineTransformScale</span>(<span class="keyword">self</span>.imageView.transform,pinch.scale,pinch.scale);</span><br><span class="line">    <span class="comment">//清零</span></span><br><span class="line">    [pinch setScale : <span class="number">1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="旋转手势"><a href="#旋转手势" class="headerlink" title="旋转手势"></a>旋转手势</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)ratationGes:(<span class="built_in">UIRatationGestureRecognizer</span> *)rotationGes&#123;</span><br><span class="line">    <span class="keyword">self</span>.imageView.transform = <span class="built_in">CGAffineTransformRotate</span>(<span class="keyword">self</span>.imageView.transform,ratationGes.rotation);</span><br><span class="line">    <span class="comment">//清零</span></span><br><span class="line">    [rotationGes setRotation:<span class="number">0</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="同时支持多个手势"><a href="#同时支持多个手势" class="headerlink" title="同时支持多个手势"></a>同时支持多个手势</h2><ul>
+<li>使用代理<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//是否支持多个手势同时使用</span></span><br><span class="line">- (<span class="built_in">BOOL</span>)gestureRecognizer:(<span class="built_in">UIGestureRecognizer</span> *)gestureRecognizer </span><br><span class="line">shouldRecognizeSimultaneouslyWithGestureRecognizer:</span><br><span class="line">(<span class="built_in">UIGestureRecognizer</span> *)otherGestureRecognizer&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ios/" rel="tag">ios</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ui/" rel="tag">ui</a></li></ul>
+
+      
+            
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/02/04/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Hello World
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article" style="overflow-y: scroll; max-width: 28%;">
+    <strong class="toc-title">Contents</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#UIGestureRecognizer"><span class="nav-number">1.</span> <span class="nav-text">UIGestureRecognizer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UIGestureRecognizer代理"><span class="nav-number">2.</span> <span class="nav-text">UIGestureRecognizer代理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#长按手势"><span class="nav-number">3.</span> <span class="nav-text">长按手势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拖动手势"><span class="nav-number">4.</span> <span class="nav-text">拖动手势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缩放手势"><span class="nav-number">5.</span> <span class="nav-text">缩放手势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#旋转手势"><span class="nav-number">6.</span> <span class="nav-text">旋转手势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同时支持多个手势"><span class="nav-number">7.</span> <span class="nav-text">同时支持多个手势</span></a></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      <footer id="footer" class="site-footer">
+  
+
+  <div class="clearfix container">
+      <div class="site-info">
+	      &copy; 2020 Hexo All Rights Reserved.
+          
+            <span id="busuanzi_container_site_uv">
+              本站访客数<span id="busuanzi_value_site_uv"></span>人次  
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+            </span>
+          
+      </div>
+      <div class="site-credit">
+        Theme by <a href="https://github.com/iTimeTraveler/hexo-theme-hiero" target="_blank">hiero</a>
+      </div>
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var contentdiv = document.getElementById("content");
+
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+</script>
+
+<!-- Custome JS -->
+
+<script src="/js/my.js"></script>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+  
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css">
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/scripts.js"></script>
+
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="https://dnqof95d40fo6.cloudfront.net/atw7f8.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>
